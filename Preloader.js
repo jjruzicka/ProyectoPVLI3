@@ -16,17 +16,36 @@ Game.Preloader.prototype = {
 
 		//LOAD ALL ASSETS
 
-		this.load.tilemap('map1', 'assets/map1/level.csv');
+		//level
+		this.load.tilemap('map1', 'assets/MAP/Mundo.csv');
+		this.load.tilemap('BoLimits', 'assets/MAP/LimitesBo.csv');
+		this.load.tilemap('plataformas', 'assets/MAP/PlataformasEspeciales.csv');
+		this.load.tilemap('pinchos', 'assets/MAP/Pinchos.csv');
+
 		this.load.image('tileset', 'assets/tileset.png');
+		this.load.image ('spikes', 'assets/spikes.png');
+
+
+		//main menu
+		this.load.image('title', 'assets/title.png');
+
+		//botones
+		this.load.image('buttonMenu', 'assets/buttonMEnu.png');
+		this.load.image('buttonResume', 'assets/buttonResume.png');
+		this.load.image('buttonPlay', 'assets/buttonPlay.png');
+
+		//GameOver
+		this.load.image('gameover', 'assets/gameover.png');	
+		this.load.image('win', 'assets/win.png');	
 
 		//Esto habra que modificarlo para las animaciones
-		this.load.image('eye', 'assets/Eye1.png');
-
+		this.load.image('eye', 'assets/EyeBlue.png');
+		this.load.image('bo', 'assets/Bo.png');
 
 	},
 
 	create:function(){
 
-		this.state.start('Level');
+		this.state.start('MainMenu');
 	}
 }
