@@ -17,13 +17,17 @@ Game.Preloader.prototype = {
 		//LOAD ALL ASSETS
 
 		//level
-		this.load.tilemap('map1', 'assets/MAP/Mundo.csv');
-		this.load.tilemap('BoLimits', 'assets/MAP/LimitesBo.csv');
-		this.load.tilemap('plataformas', 'assets/MAP/PlataformasEspeciales.csv');
-		this.load.tilemap('pinchos', 'assets/MAP/Pinchos.csv');
+		/*this.load.tilemap('map1', 'assets/MAP/Mundo.json');
+		this.load.tilemap('BoLimits', 'assets/MAP/LimitesBo.json');
+		this.load.tilemap('plataformas', 'assets/MAP/PlataformasEspeciales.json');
+		this.load.tilemap('pinchos', 'assets/MAP/Pinchos.json');*/
+		this.load.tilemap('mundo', 'assets/MAP/Mundo.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.tilemap('BoLimits', 'assets/MAP/LimitesBo.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.tilemap('plataformas', 'assets/MAP/PlataformasEspeciales.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.tilemap('spikes', 'assets/MAP/Pinchos.json', null, Phaser.Tilemap.TILED_JSON);
 
-		this.load.image('tileset', 'assets/tileset.png');
-		this.load.image ('spikes', 'assets/spikes.png');
+		this.load.image('tiles', 'assets/tileset.png');
+		this.load.image ('tilesPinchos', 'assets/spikes.png');
 
 
 		//main menu

@@ -27,33 +27,33 @@ Game.Level.prototype = {
 		this.stage.backgroundColor = '#4422AA';
 
 		//mapa principal
-		map = this.add.tilemap('map1', 16, 16);
-		map.addTilesetImage('tileset');
-		layer = map.createLayer(0);
+		map = this.add.tilemap('mundo');
+		map.addTilesetImage('tileset', 'tiles');
+		layer = map.createLayer('Capa de Patrones 1');
 		layer.resizeWorld();
 		map.setCollisionBetween(701, 713);
 
 		//limites de los enemigos
-		BoLimits = this.add.tilemap('BoLimits', 16, 16);
-		BoLimits.addTilesetImage('tileset');
-		layer1 = BoLimits.createLayer(0);
+		BoLimits = this.add.tilemap('BoLimits');
+		BoLimits.addTilesetImage('tileset', 'tiles');
+		layer1 = BoLimits.createLayer('Capa de Patrones 1');
 		layer1.visible = false;
-		BoLimits.setCollisionBetween(755, 755);
+		BoLimits.setCollisionBetween(755, 756);
 
 		//plataformas especiales
-		plataformas = this.add.tilemap('plataformas', 16, 16);
-		plataformas.addTilesetImage('tileset');
-		layer2 = plataformas.createLayer(0);
+		plataformas = this.add.tilemap('plataformas');
+		plataformas.addTilesetImage('tileset', 'tiles');
+		layer2 = plataformas.createLayer('Capa de Patrones 1');
 		plataformas.setCollisionBetween(710, 715);
 
 		//pinchos
-		pinchos = this.add.tilemap('pinchos', 16, 16);
-		pinchos.addTilesetImage('spikes');
-		layer3 = pinchos.createLayer(0);
+		pinchos = this.add.tilemap('spikes');
+		pinchos.addTilesetImage('pinchos', 'tilesPinchos');
+		layer3 = pinchos.createLayer('Capa de Patrones 1');
 		pinchos.setCollisionBetween(0, 15);
 
 		//player
-		eye = this.add.sprite(256, 3700, 'eye');
+		eye = this.add.sprite(256, 3830, 'eye');
 		eye.anchor.setTo(0.5, 0.5);
 
 		//fisica del juego
@@ -150,9 +150,15 @@ Game.Level.prototype = {
 
 		///////////////Win\\\\\\\\\\\\\
 
-		if ((eye.x <= 25 && eye.y === 2128) || eye.y <= 50){ //si llega arriba tb gana (esto es temporal)
+		if (eye.x <= 25 && eye.y === 2128){ //si llega arriba tb gana (esto es temporal)
 			this.state.start('GameOver', true, false, true);
 			//true, clean world; false, clean cache; true, the player won	
+		}
+
+		//////////////end map\\\\\\\\\\\
+		if(eye.y <= 0){
+			eye.x = 256;
+			eye.y = 3830;
 		}
 
 		//////////////Death\\\\\\\\\\\\\
