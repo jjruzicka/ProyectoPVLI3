@@ -42,9 +42,9 @@ Game.Preloader.prototype = {
 		this.load.image('gameover', 'assets/gameover.png');	
 		this.load.image('win', 'assets/win.png');	
 
-		//Esto habra que modificarlo para las animaciones
-		this.load.image('eye', 'assets/EyeBlue.png');
-		this.load.image('bo', 'assets/Bo.png');
+		//animaciones
+		this.load.spritesheet('Eye', 'assets/Eye.png', 28, 32);
+		this.load.spritesheet('bo', 'assets/Bo.png', 32, 32);
 
 	},
 

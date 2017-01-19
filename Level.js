@@ -15,6 +15,7 @@ var playerSpeed = 200;
 var jumpTimer = 0;
 var walkTimer = 0;
 var wallJump = false;
+var contador = 0;
 
 var enemies;
 
@@ -53,8 +54,14 @@ Game.Level.prototype = {
 		pinchos.setCollisionBetween(0, 15);
 
 		//player
-		eye = this.add.sprite(256, 3830, 'eye');
+		eye = this.add.sprite(256, 3830, 'Eye');
 		eye.anchor.setTo(0.5, 0.5);
+
+		eye.animations.add('idle', [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3], 12, true); //nombre, frames del spritesheet, framesxframe, loop?
+		eye.animations.add('walk', [4, 4, 4, 5, 6, 7], 10, true);
+		eye.animations.add('jump', [8], 1, true);
+		eye.animations.add('jumpIdle', [0], 1, true);
+		eye.animations.add('fall', [9], 1, true);
 
 		//fisica del juego
 		this.physics.arcade.enable(eye);
@@ -74,6 +81,8 @@ Game.Level.prototype = {
 			jump: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
 			pause: this.input.keyboard.addKey(Phaser.Keyboard.ESC),
 		};
+
+
 
 		//////////Pause Menu\\\\\\\\\\\
 		button1 = game.add.button(this.camera.x + 200, this.camera.y + 200, 'buttonMenu', function () { //boton del menu
@@ -148,6 +157,20 @@ Game.Level.prototype = {
 
 		}
 
+		///////////////AnimacionesEYE\\\\\\\\\\\\\\\\\
+		if (eye.body.velocity.x === 0 && eye.body.velocity.y === 0) eye.animations.play('idle');
+
+		if (eye.body.velocity.y === 0) {
+			if (eye.body.velocity.x > 0) { eye.animations.play('walk'); eye.scale.setTo(1, 1); }
+			else if (eye.body.velocity.x < 0) { eye.animations.play('walk'); eye.scale.setTo(-1, 1); }
+		}
+		else if (eye.body.velocity.y < 0) {
+			if (eye.body.velocity.x > 0) { eye.animations.play('jump'); eye.scale.setTo(1, 1); }
+			else if (eye.body.velocity.x < 0) { eye.animations.play('jump');	eye.scale.setTo(-1, 1); }
+			else if (eye.body.velocity.x === 0) { eye.animations.play('jumpIdle'); }
+		}
+		else if (eye.body.velocity.y > 0) eye.animations.play('fall');
+
 		///////////////Win\\\\\\\\\\\\\
 
 		if (eye.x <= 25 && eye.y === 2128){ //si llega arriba tb gana (esto es temporal)
@@ -192,11 +215,16 @@ function Enemy(name, game, x, y){
 	this.bo = enemies.create(x, y, 'bo');
 	this.bo.anchor.setTo(0.5, 0.5);
 	this.bo.name = name;
+	this.bo.animations.add('walk', [0, 1], 2, true);
+
 	//game.physics.enable(this.bo, Phaser.Physics.ARCADE);
 	game.physics.arcade.enable(this.bo);
 	this.bo.body.allowGravity = false;
 	this.bo.body.velocity.x = 100;
 	this.bo.body.bounce.setTo(1, 1);
+
+	this.bo.animations.play('walk');
+	this.bo.scale.setTo(1, 1);
 }
 
 
@@ -216,6 +244,7 @@ function CreateEnemies(game){
 	new Enemy('Bo12', game, 310, 110);
 	new Enemy('Bo13', game, 180, 52);
 }
+
 
 function GameOver(){
 	this.state.start('GameOver', true, false, false);
