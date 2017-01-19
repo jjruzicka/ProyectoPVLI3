@@ -11,6 +11,8 @@ var layer3;
 
 var background;
 var jumping;
+var boton;
+var teleport;
 
 var eye;
 var controls = {};
@@ -28,12 +30,17 @@ var	button2;
 Game.Level.prototype = {
 
 	create:function(game){
+		this.sound.stopAll();
+
 		this.stage.backgroundColor = '#4422AA';
 		//background = this.add.tileSprite(0, 0, 384, 600, 'background');
-		
-		this.music = this.add.audio('game', 0.5, true);
+
+		this.music = this.add.audio('game', 0.6, true);
 		this.music.play();
 		jumping = this.add.audio('jumping');
+		boton = this.add.audio('boton');
+		teleport = this.add.audio('teleport');
+
 
 		//mapa principal
 		map = this.add.tilemap('mundo');
@@ -94,6 +101,7 @@ Game.Level.prototype = {
 
 		//////////Pause Menu\\\\\\\\\\\
 		button1 = game.add.button(this.camera.x + 200, this.camera.y + 200, 'buttonMenu', function () { //boton del menu
+			boton.play();
 			game.physics.arcade.isPaused = false;
 			this.music.stop();
 		 	this.state.start('MainMenu');
@@ -105,6 +113,7 @@ Game.Level.prototype = {
 
 
 		button2 = game.add.button(this.camera.x + 200, this.camera.y + 400, 'buttonResume', function () { //boton de continuar
+			boton.play();
 			button1.visible = false;
 			button2.visible = false;
 		 	this.physics.arcade.isPaused = false;
@@ -190,8 +199,8 @@ Game.Level.prototype = {
 		}
 
 		//////////////end map\\\\\\\\\\\
-		if(eye.y <= 0){
-			eye.x = 256;
+		if(eye.y <= 50){
+			teleport.play();
 			eye.y = 3830;
 		}
 

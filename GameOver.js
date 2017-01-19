@@ -13,11 +13,13 @@ Game.GameOver.prototype = {
 	create:function(game) {
 		this.music = this.add.audio('menu', 0.5, true);
 		this.music.play();
+		boton = this.add.audio('boton');
+
 
 		this.stage.backgroundColor = '#000';
 
 		this.createButton(game, 'buttonMenu', this.camera.x + 200, this.camera.y + 400, 100, 50, function(){
-
+			boton.play();
 			this.state.start('MainMenu', true, false, true);
 		});
 

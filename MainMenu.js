@@ -4,7 +4,8 @@ Game.MainMenu = function (game) {
 
 
 var title;
-var afirmativo; 
+var afirmativo;
+var boton;
 
 Game.MainMenu.prototype = {
 	init:function(playing){
@@ -15,11 +16,12 @@ Game.MainMenu.prototype = {
 			this.music = this.add.audio('menu', 0.5, true);
 			this.music.play();
 		}
-
+		boton = this.add.audio('boton');
 
 		this.stage.backgroundColor = '#000';
 
 		this.createButton(game, 'buttonPlay', this.camera.x + 200, this.camera.y + 400, 100, 50, function(){
+			boton.play();
 			this.music.stop();
 			this.state.start('Level');
 		});
