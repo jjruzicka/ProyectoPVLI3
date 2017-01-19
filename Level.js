@@ -9,23 +9,31 @@ var layer1;
 var layer2;
 var layer3;
 
+var background;
+var jumping;
+
 var eye;
 var controls = {};
 var playerSpeed = 200;
 var jumpTimer = 0;
 var walkTimer = 0;
 var wallJump = false;
-var contador = 0;
 
 var enemies;
 
 var	button1;
 var	button2;
 
+
 Game.Level.prototype = {
 
 	create:function(game){
 		this.stage.backgroundColor = '#4422AA';
+		//background = this.add.tileSprite(0, 0, 384, 600, 'background');
+		
+		this.music = this.add.audio('game', 0.5, true);
+		this.music.play();
+		jumping = this.add.audio('jumping');
 
 		//mapa principal
 		map = this.add.tilemap('mundo');
@@ -87,6 +95,7 @@ Game.Level.prototype = {
 		//////////Pause Menu\\\\\\\\\\\
 		button1 = game.add.button(this.camera.x + 200, this.camera.y + 200, 'buttonMenu', function () { //boton del menu
 			game.physics.arcade.isPaused = false;
+			this.music.stop();
 		 	this.state.start('MainMenu');
 		}, this, 2, 1, 0);
 
@@ -98,7 +107,8 @@ Game.Level.prototype = {
 		button2 = game.add.button(this.camera.x + 200, this.camera.y + 400, 'buttonResume', function () { //boton de continuar
 			button1.visible = false;
 			button2.visible = false;
-		 	game.physics.arcade.isPaused = false;
+		 	this.physics.arcade.isPaused = false;
+		 	this.music.resume();
 		}, this, 2, 1, 0);
 
 		button2.anchor.setTo(0.5, 0.5);
@@ -142,14 +152,14 @@ Game.Level.prototype = {
 		}
 
 		if (eye.body.onFloor() && controls.jump.isDown && this.time.now > jumpTimer){
-			
+			jumping.play();
 			eye.body.velocity.y = -500;
 			jumpTimer = this.time.now + 200;
 			wallJump = true;
 		}
 
 		else if(eye.body.onWall() && controls.jump.isDown && !eye.body.onFloor() && this.time.now > jumpTimer && wallJump){
-
+			jumping.play();
 			eye.body.bounce.set(0.8);
 			eye.body.velocity.y = -500;
 			walkTimer = this.time.now + 400;
@@ -166,7 +176,7 @@ Game.Level.prototype = {
 		}
 		else if (eye.body.velocity.y < 0) {
 			if (eye.body.velocity.x > 0) { eye.animations.play('jump'); eye.scale.setTo(1, 1); }
-			else if (eye.body.velocity.x < 0) { eye.animations.play('jump');	eye.scale.setTo(-1, 1); }
+			else if (eye.body.velocity.x < 0) { eye.animations.play('jump'); eye.scale.setTo(-1, 1); }
 			else if (eye.body.velocity.x === 0) { eye.animations.play('jumpIdle'); }
 		}
 		else if (eye.body.velocity.y > 0) eye.animations.play('fall');
@@ -174,6 +184,7 @@ Game.Level.prototype = {
 		///////////////Win\\\\\\\\\\\\\
 
 		if (eye.x <= 25 && eye.y === 2128){ //si llega arriba tb gana (esto es temporal)
+			this.music.stop();
 			this.state.start('GameOver', true, false, true);
 			//true, clean world; false, clean cache; true, the player won	
 		}
@@ -191,9 +202,6 @@ Game.Level.prototype = {
 
 		if (controls.pause.isDown){
 
-			console.log("x:" + eye.x);
-			console.log("y:" + eye.y);
-
 			button1.x = this.camera.x + 200; //corregimos la posicion de los botones
 			button2.x = this.camera.x + 200;
 			button1.y = this.camera.y + 200;
@@ -202,7 +210,8 @@ Game.Level.prototype = {
 			button1.visible = true; //mostramos el menu
 			button2.visible = true;
 
-			game.physics.arcade.isPaused = true; //paramos la fisica del juego
+			this.music.pause();
+			this.physics.arcade.isPaused = true; //paramos la fisica del juego
 			//no paramos el juego en si porque si no los botones no funcionarian
 
 		}
@@ -249,6 +258,7 @@ function CreateEnemies(game){
 function GameOver(){
 	this.state.start('GameOver', true, false, false);
 	//true, clean world; false, clean cache; false, the player lost
+	this.music.stop();
 }
 
 

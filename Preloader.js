@@ -3,6 +3,9 @@ Game.Preloader = function(game){
 	this.preloadBar = null;
 }
 
+var mmusic;
+
+
 Game.Preloader.prototype = {
 
 	preload:function(){
@@ -29,6 +32,10 @@ Game.Preloader.prototype = {
 		this.load.image('tiles', 'assets/tileset.png');
 		this.load.image ('tilesPinchos', 'assets/spikes.png');
 
+		//this.load.image('background', 'assets/fondo.png');
+		this.load.audio('menu', 'assets/Audio/intro.mp3');
+		this.load.audio('game', 'assets/Audio/game.mp3');
+		this.load.audio('jumping', 'assets/Audio/jump.mp3');
 
 		//main menu
 		this.load.image('title', 'assets/title.png');
@@ -49,7 +56,6 @@ Game.Preloader.prototype = {
 	},
 
 	create:function(){
-
-		this.state.start('MainMenu');
+		this.state.start('MainMenu', true, false, false);
 	}
 }

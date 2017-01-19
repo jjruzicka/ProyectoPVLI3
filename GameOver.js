@@ -11,10 +11,14 @@ Game.GameOver.prototype = {
 	},
 
 	create:function(game) {
+		this.music = this.add.audio('menu', 0.5, true);
+		this.music.play();
+
 		this.stage.backgroundColor = '#000';
 
 		this.createButton(game, 'buttonMenu', this.camera.x + 200, this.camera.y + 400, 100, 50, function(){
-			this.state.start('MainMenu');
+
+			this.state.start('MainMenu', true, false, true);
 		});
 
 		if (success){ //if true, means the player won
