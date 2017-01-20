@@ -16,6 +16,8 @@ Game.Preloader.prototype = {
 
 		//LOAD ALL ASSETS
 
+		//Fondo
+		this.load.image('backGround', 'assets/fondo.png');
 		//level
 		/*this.load.tilemap('map1', 'assets/MAP/Mundo.json');
 		this.load.tilemap('BoLimits', 'assets/MAP/LimitesBo.json');

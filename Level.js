@@ -1,5 +1,6 @@
 Game.Level = function(game){};
 
+var bg;
 var map;
 var BoLimits;
 var plataformas;
@@ -30,6 +31,8 @@ var	button2;
 Game.Level.prototype = {
 
 	create:function(game){
+
+		bg = game.add.tileSprite(0, 0, 512, 3872, 'backGround');
 		this.sound.stopAll();
 
 		this.stage.backgroundColor = '#4422AA';
@@ -132,8 +135,8 @@ Game.Level.prototype = {
 
 		//Collisions
 		this.physics.arcade.collide(eye, layer);
-		this.physics.arcade.collide(enemies, layer);
-		this.physics.arcade.collide(enemies, layer1);
+		this.physics.arcade.collide(enemies, layer, EnemyTurner, null, this);
+		this.physics.arcade.collide(enemies, layer1, EnemyTurner, null, this);
 		this.physics.arcade.collide(eye, layer2);
 
 		plataformas.forEach(function (t) { if (t) { t.collideDown = false;} }, game, 0, 0, plataformas.width, plataformas.height, layer2);
@@ -238,7 +241,7 @@ function Enemy(name, game, x, y){
 	//game.physics.enable(this.bo, Phaser.Physics.ARCADE);
 	game.physics.arcade.enable(this.bo);
 	this.bo.body.allowGravity = false;
-	this.bo.body.velocity.x = 100;
+	this.bo.body.velocity.x = -100;
 	this.bo.body.bounce.setTo(1, 1);
 
 	this.bo.animations.play('walk');
@@ -263,6 +266,12 @@ function CreateEnemies(game){
 	new Enemy('Bo13', game, 180, 52);
 }
 
+function EnemyTurner(enemy){
+	if(enemy.body.velocity.x > 0)
+		enemy.scale.setTo(-1, 1);
+	else 
+		enemy.scale.setTo(1, 1);
+}
 
 function GameOver(){
 	this.state.start('GameOver', true, false, false);
