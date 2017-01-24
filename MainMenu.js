@@ -1,11 +1,5 @@
-Game.MainMenu = function (game) {
+Game.MainMenu = function (game) {};
 
-};
-
-
-var title;
-var afirmativo;
-var boton;
 
 Game.MainMenu.prototype = {
 	init:function(playing){

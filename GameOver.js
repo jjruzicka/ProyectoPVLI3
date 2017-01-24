@@ -1,9 +1,5 @@
-Game.GameOver = function (game) {
+Game.GameOver = function (game) {};
 
-};
-
-var success;
-var title;
 
 Game.GameOver.prototype = {
 	init:function(result){

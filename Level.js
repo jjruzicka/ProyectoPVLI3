@@ -1,34 +1,12 @@
-Game.Level = function(game){};
-
-var bg;
-var map;
-var BoLimits;
-var plataformas;
-var pinchos;
-var layer;
-var layer1;
-var layer2;
-var layer3;
-
-var background;
-var jumping;
-var boton;
-var teleport;
-
-var eye;
-var controls = {};
-var playerSpeed = 200;
-var jumpTimer = 0;
-var walkTimer = 0;
-var wallJump = false;
-
-var enemies;
-
-var	button1;
-var	button2;
+Game.Level = function(game) {};
 
 
 Game.Level.prototype = {
+
+	playerSpeed: 200,
+	jumpTimer: 0,
+	walkTimer: 0,
+	wallJump: false,
 
 	create:function(game){
 
@@ -36,7 +14,6 @@ Game.Level.prototype = {
 		this.sound.stopAll();
 
 		this.stage.backgroundColor = '#4422AA';
-		//background = this.add.tileSprite(0, 0, 384, 600, 'background');
 
 		this.music = this.add.audio('game', 0.6, true);
 		this.music.play();
@@ -134,6 +111,8 @@ Game.Level.prototype = {
 	update:function(game){
 
 		//Collisions
+		//collide(object1, object2, collideCallback, processCallback, callbackContext)
+
 		this.physics.arcade.collide(eye, layer);
 		this.physics.arcade.collide(enemies, layer, EnemyTurner, null, this);
 		this.physics.arcade.collide(enemies, layer1, EnemyTurner, null, this);
@@ -155,27 +134,27 @@ Game.Level.prototype = {
 		if(eye.body.onWall()) wallJump = true;
 		eye.body.bounce.set(0);
 		
-		if(controls.right.isDown && this.time.now > walkTimer){
+		if(controls.right.isDown && this.time.now > this.walkTimer){
 			eye.body.velocity.x = 200;
 		}
 
-		else if(controls.left.isDown && this.time.now > walkTimer){
+		else if(controls.left.isDown && this.time.now > this.walkTimer){
 			eye.body.velocity.x = -200;
 		}
 
-		if (eye.body.onFloor() && controls.jump.isDown && this.time.now > jumpTimer){
+		if (eye.body.onFloor() && controls.jump.isDown && this.time.now > this.jumpTimer){
 			jumping.play();
 			eye.body.velocity.y = -500;
-			jumpTimer = this.time.now + 200;
-			wallJump = true;
+			this.jumpTimer = this.time.now + 200;
+			this.wallJump = true;
 		}
 
-		else if(eye.body.onWall() && controls.jump.isDown && !eye.body.onFloor() && this.time.now > jumpTimer && wallJump){
+		else if(eye.body.onWall() && controls.jump.isDown && !eye.body.onFloor() && this.time.now > this.jumpTimer && wallJump){
 			jumping.play();
 			eye.body.bounce.set(0.8);
 			eye.body.velocity.y = -500;
-			walkTimer = this.time.now + 400;
-			wallJump = false;
+			this.walkTimer = this.time.now + 400;
+			this.wallJump = false;
 
 		}
 
@@ -232,6 +211,8 @@ Game.Level.prototype = {
 }
 
 function Enemy(name, game, x, y){
+
+	//'bo' -----> sprite name
 	
 	this.bo = enemies.create(x, y, 'bo');
 	this.bo.anchor.setTo(0.5, 0.5);
