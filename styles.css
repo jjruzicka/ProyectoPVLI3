@@ -2,7 +2,6 @@ html {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  box-sizing: border-box;
 }
 
 body {
@@ -10,9 +9,9 @@ body {
   margin: 0;
   padding-bottom: 6rem;
   min-height: 100%;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  background: #fff;
-  color: #000;
+  font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman";
+  background-image: url("assets/fondoPagina.png");
+  color: #fff;
 }
 
 a {
@@ -28,14 +27,12 @@ sideL {
   position: absolute;
   top: 200px; 
   left: 40px; 
-  border: 0;
 }
 
 sideR {
   position: absolute;
   top: 210px; 
   right: 100px; 
-  border: 0;
 }
 
 footer {
@@ -44,6 +41,5 @@ footer {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
   text-align: center;
 }
