@@ -31,7 +31,6 @@ Game.Preloader.prototype = {
 		this.load.image('tiles', 'assets/tileset.png');
 		this.load.image ('tilesPinchos', 'assets/spikes.png');
 
-		//this.load.image('background', 'assets/fondo.png');
 		this.load.audio('menu', 'assets/Audio/intro.mp3');
 		this.load.audio('game', 'assets/Audio/game.mp3');
 		this.load.audio('jumping', 'assets/Audio/jump.mp3');
@@ -42,7 +41,7 @@ Game.Preloader.prototype = {
 		this.load.image('title', 'assets/title.png');
 
 		//botones
-		this.load.image('buttonMenu', 'assets/buttonMEnu.png');
+		this.load.image('buttonMenu', 'assets/buttonMenu.png');
 		this.load.image('buttonResume', 'assets/buttonResume.png');
 		this.load.image('buttonPlay', 'assets/buttonPlay.png');
 

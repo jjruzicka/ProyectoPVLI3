@@ -108,7 +108,7 @@ Game.Level.prototype = {
 		button2.visible = false;
 	},
 
-	update:function(game){
+	update:function(){
 
 		//Collisions
 		//collide(object1, object2, collideCallback, processCallback, callbackContext)
@@ -118,8 +118,10 @@ Game.Level.prototype = {
 		this.physics.arcade.collide(enemies, layer1, EnemyTurner, null, this);
 		this.physics.arcade.collide(eye, layer2);
 
-		plataformas.forEach(function (t) { if (t) { t.collideDown = false;} }, game, 0, 0, plataformas.width, plataformas.height, layer2);
+		plataformas.forEach(function (t) { if (t) { t.collideDown = false;} }, this, 0, 0, plataformas.width, plataformas.height, layer2);
 
+		//en vez de este se pone:
+		//this.physics.arcade.overlap(eye, enemies, GameOver, null, this);
 		this.physics.arcade.collide(enemies, eye, GameOver, null, this); //si el player choca con Bo llama a este evento
 		this.physics.arcade.collide(layer3, eye, GameOver, null, this); //si colisiona con los pinchos llama al evento
 
@@ -255,9 +257,14 @@ function EnemyTurner(enemy){
 }
 
 function GameOver(){
+	//pasar eye y enemy
+	//if (eye.body.touching.down)
+		//enemy.kill();
+	//else{
 	this.state.start('GameOver', true, false, false);
 	//true, clean world; false, clean cache; false, the player lost
 	this.music.stop();
+	//}
 }
 
 
