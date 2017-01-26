@@ -2,7 +2,9 @@
 <html>
 	<meta charset="UTF-8"/>
 	<title>Look up</title>
-	
+
+	<link href="styles.css" rel="stylesheet" type="text/css">
+
 	<script src="Phaser.js"></script>
 	<script src="Boot.js"></script>
 	<script src="Preloader.js"></script>
@@ -11,22 +13,31 @@
 	<script src="GameOver.js"></script>
 
 	<body>
-	<script type="text/javascript">
-		window.onload = function(){
+		<main>
+			<script type="text/javascript">
+				window.onload = function(){
 
-			var game = new Phaser.Game(384, 600, Phaser.CANVAS,'');
+					var game = new Phaser.Game(384, 600, Phaser.CANVAS,'');
 
-			game.state.add('Boot', Game.Boot);
-			game.state.add('Preloader', Game.Preloader);
-			game.state.add('MainMenu', Game.MainMenu);
-			game.state.add('Level', Game.Level);
-			game.state.add('GameOver', Game.GameOver);
+					game.state.add('Boot', Game.Boot);
+					game.state.add('Preloader', Game.Preloader);
+					game.state.add('MainMenu', Game.MainMenu);
+					game.state.add('Level', Game.Level);
+					game.state.add('GameOver', Game.GameOver);
 
-			game.state.start('Boot');
+					game.state.start('Boot');
 
-		}	
+				}	
 
-	</script>
-	
+			</script>
+		</main>
+		<footer>
+		    <p><strong>Look up</strong><br>
+		      by <a href="http://github.com/jjruzicka">Jeremy J. Ruzicka</a>
+		      and <a href="http://github.com/luciacg">Lucía Carrión</a></p>
+
+		    <p class="license">Created for PVLI, subject on the UCM</a></p>
+		</footer>
+
 	</body>
 </html>
